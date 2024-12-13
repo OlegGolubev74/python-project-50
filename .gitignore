@@ -1,5 +1,6 @@
 .venv/
 dist/
 __pycache__/
+testfiles/
 my_note.txt
 *.odt
