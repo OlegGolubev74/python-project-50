@@ -13,6 +13,10 @@ jobs:
         with:
           python-version: "3.12"
           # make depends on uv
+
+      - name: Add project to PYTHONPATH
+        run: echo "PYTHONPATH=$PWD" >> $GITHUB_ENV
+              
       - name: Install dependencies
         run: |
           pip install uv
