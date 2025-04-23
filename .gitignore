@@ -6,10 +6,15 @@ __pycache__/
 .ruff_cache/
 my_note.txt
 *.odt
-file1.json
-file2.json
+/file1.json
+/file2.json
 tmp1.py
 tmp10.py
 tmp11.py
 *.txt
 demo.cast
+.coverage
+coverage.xml
+gendiff/file1.json
+gendiff/file2.json
+/sonar-project.properties

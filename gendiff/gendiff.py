@@ -34,21 +34,28 @@ def generate_diff(data1, data2):
 
     for key in all_keys:
         if key not in data_from_file1:
-            # Ключ есть только во втором словаре
-            result.append(f"  + {key}: {data_from_file2[key]}")
+            value = format_value(data_from_file2[key])
+            result.append(f"  + {key}: {value}")
         elif key not in data_from_file2:
-            # Ключ есть только в первом словаре
-            result.append(f"  - {key}: {data_from_file1[key]}")
+            value = format_value(data_from_file1[key])
+            result.append(f"  - {key}: {value}")
         elif data_from_file1[key] == data_from_file2[key]:
-            # Ключ есть в обоих словарях с одинаковыми значениями
-            result.append(f"    {key}: {data_from_file1[key]}")
+            value = format_value(data_from_file1[key])
+            result.append(f"    {key}: {value}")
         else:
-            # Ключ есть в обоих словарях, но значения разные
-            result.append(f"  - {key}: {data_from_file1[key]}")
-            result.append(f"  + {key}: {data_from_file2[key]}")
+            value1 = format_value(data_from_file1[key])
+            value2 = format_value(data_from_file2[key])
+            result.append(f"  - {key}: {value1}")
+            result.append(f"  + {key}: {value2}")
     
-    # Объединяем строки с переносами и добавляем фигурные скобки
     return "{\n" + "\n".join(result) + "\n}"
+
+
+# Вспомогательная функция для преобразования значений
+def format_value(value):
+    if isinstance(value, bool):
+        return str(value).lower()  # True → "true", False → "false"
+    return value
 
 
 '''

@@ -1,0 +1,39 @@
+name: ci
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 # клонирование
+      - name: Set up Python
+        uses: actions/setup-python@v5 # установка Python (в конце указал 5, как в тестовом образце)
+        with:
+          python-version: "3.12"
+          # make depends on uv
+      - name: Install dependencies
+        run: |
+          pip install uv
+          make install
+      - name: Run linter and pytest
+        run: |
+          ruff check
+      - name: Run pytest
+        run: |
+          pytest -v
+      - name: Run test coverage
+        run: |
+          make test-coverage
+
+      - name: SonarQubeScan
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=OlegGolubev74_python-project-50
+            -Dsonar.organization=oleggolubev74
+            -Dsonar.python.coverage.reportPaths=coverage.xml
