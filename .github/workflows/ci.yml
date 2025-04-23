@@ -1,5 +1,4 @@
 name: ci
-
 on:
   - push
   - pull_request
@@ -17,6 +16,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install uv
+          pip install ruff
           make install
       - name: Run linter and pytest
         run: |
