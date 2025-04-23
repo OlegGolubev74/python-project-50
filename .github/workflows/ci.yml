@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4 # клонирование
+        with:
+          fetch-depth: 0
       - name: Set up Python
         uses: actions/setup-python@v5 # установка Python (в конце указал 5, как в тестовом образце)
         with:
@@ -43,3 +45,4 @@ jobs:
             -Dsonar.projectKey=OlegGolubev74_python-project-50
             -Dsonar.organization=oleggolubev74
             -Dsonar.python.coverage.reportPaths=coverage.xml
+            -Dsonar.python.version=3.12
