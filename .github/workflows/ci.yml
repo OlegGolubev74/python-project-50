@@ -25,6 +25,7 @@ jobs:
           pip install ruff
           pip install pytest
           pip install pytest-cov
+          pip install pyyaml
         #  # make install
       - name: Run linter
         run: |
