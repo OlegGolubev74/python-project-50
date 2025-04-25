@@ -8,6 +8,8 @@ my_note.txt
 *.odt
 /file1.json
 /file2.json
+/file1.yaml
+/file2.yaml
 tmp1.py
 tmp10.py
 tmp11.py
@@ -17,4 +19,6 @@ demo.cast
 coverage.xml
 gendiff/file1.json
 gendiff/file2.json
+gendiff/file1.yaml
+gendiff/file2.yaml
 /sonar-project.properties

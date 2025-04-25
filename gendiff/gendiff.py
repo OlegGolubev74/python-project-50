@@ -1,7 +1,6 @@
-import json
-import os
+from gendiff.parsing_files import parse
 
-
+'''
 # Чтение JSON из файла (load)
 def parse_files1():
     abs_path1 = os.path.abspath('file1.json')
@@ -14,15 +13,20 @@ def parse_files1():
     # print(data_from_file2)
     # print(data_from_file1, data_from_file2)
     return data_from_file1, data_from_file2
+'''
+    
+# json
+# data1 и data2 это полный путь к файлу
+# data_from_file1 - данные в формате Python, т.е. уже распарсеный файл,
+#  т.е. уже словарь
+
+#############################################
+# Делаю новую функцию, которая будет анализировать расширение файла и 
+# парсить соответствующим методом разный тип файлов 
 
 
-def generate_diff(data1, data2):    
-    with open(data1, "r", encoding="utf-8") as file:
-        data_from_file1 = json.load(file)
-    with open(data2, "r", encoding="utf-8") as file:
-        data_from_file2 = json.load(file)
-    # print(data_from_file1)
-    # print(data_from_file2)
+def generate_diff(data1, data2):
+    data_from_file1, data_from_file2 = parse(data1, data2)
 
 # Получаем все уникальные ключи из обоих словарей и сортируем их
     all_keys = sorted(
@@ -64,3 +68,4 @@ if __name__ == '__main__':
     #print(difference)
     generate_diff(data1, data2)
 '''
+

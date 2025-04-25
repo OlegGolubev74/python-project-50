@@ -8,3 +8,6 @@
 # Examples of the Output
 Compare two json files:
 [![asciicast](https://asciinema.org/a/Am3KwTGbhOVKMx1zD2xCY1TVr.svg)](https://asciinema.org/a/Am3KwTGbhOVKMx1zD2xCY1TVr)
+
+Compare two yaml files:
+[![asciicast](https://asciinema.org/a/vfUihHYeUTC33q6DkeAt0F7ha.svg)](https://asciinema.org/a/vfUihHYeUTC33q6DkeAt0F7ha)
