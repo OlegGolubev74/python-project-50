@@ -38,7 +38,6 @@ def test_generate_diff_flat_yaml():
 }
 """
 
-
     FILE1_PATH = os.path.join(os.path.dirname(__file__), 
                               "test_data", "file1.yaml")
     FILE2_PATH = os.path.join(os.path.dirname(__file__), 
@@ -98,7 +97,6 @@ def test_generate_diff_recursive_json():
 }
 """
     
-
     FILE1_PATH = os.path.join(os.path.dirname(__file__), 
                               "test_data", "file3.json")
     FILE2_PATH = os.path.join(os.path.dirname(__file__), 
@@ -158,8 +156,6 @@ def test_generate_diff_recursive_yaml():
 }
 """
     
-
-
     FILE1_PATH = os.path.join(os.path.dirname(__file__), 
                               "test_data", "file3.yaml")
     FILE2_PATH = os.path.join(os.path.dirname(__file__), 
@@ -186,7 +182,6 @@ Property 'group2' was removed
 Property 'group3' was added with value: [complex value]
 """
     
-
     FILE1_PATH = os.path.join(os.path.dirname(__file__), 
                               "test_data", "file3.json")
     FILE2_PATH = os.path.join(os.path.dirname(__file__), 
@@ -213,13 +208,10 @@ Property 'group2' was removed
 Property 'group3' was added with value: [complex value]
 """
 
-
-
     FILE1_PATH = os.path.join(os.path.dirname(__file__), 
                               "test_data", "file3.yaml")
     FILE2_PATH = os.path.join(os.path.dirname(__file__), 
                               "test_data", "file4.yaml")
-
 
     result = generate_diff(FILE1_PATH, FILE2_PATH, 'plain')
 
@@ -481,7 +473,6 @@ def test_generate_diff_yaml_to_json():
                               "test_data", "file3.yaml")
     FILE2_PATH = os.path.join(os.path.dirname(__file__), 
                               "test_data", "file4.yaml")
-
 
     result = generate_diff(FILE1_PATH, FILE2_PATH, 'json')
 
