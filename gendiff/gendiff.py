@@ -1,71 +1,57 @@
 from gendiff.parsing_files import parse
 
-'''
-# Чтение JSON из файла (load)
-def parse_files1():
-    abs_path1 = os.path.abspath('file1.json')
-    abs_path2 = os.path.abspath('file2.json')
-    with open(abs_path1, "r", encoding="utf-8") as file:
-        data_from_file1 = json.load(file)
-    with open(abs_path2, "r", encoding="utf-8") as file:
-        data_from_file2 = json.load(file)
-    # print(data_from_file1)
-    # print(data_from_file2)
-    # print(data_from_file1, data_from_file2)
-    return data_from_file1, data_from_file2
-'''
-    
-# json
-# data1 и data2 это полный путь к файлу
-# data_from_file1 - данные в формате Python, т.е. уже распарсеный файл,
-#  т.е. уже словарь
-
-#############################################
-# Делаю новую функцию, которая будет анализировать расширение файла и 
-# парсить соответствующим методом разный тип файлов 
+from gendiff.formatters.stylish import render as stylish
+from gendiff.formatters.plain import render as plain
+from gendiff.formatters.json import render as json_format
 
 
-def generate_diff(data1, data2):
-    data_from_file1, data_from_file2 = parse(data1, data2)
+def generate_diff(file1, file2, format_name='stylish'):
+    data1, data2 = parse(file1, file2)
+    diff = build_diff(data1, data2)
+    if format_name == 'stylish':
+        return stylish(diff)
+    elif format_name == 'plain':
+         return plain(diff)
+    elif format_name == 'json':
+        return json_format(diff)
+    else:
+        raise ValueError(f"Unknown format: {format_name}")
 
-# Получаем все уникальные ключи из обоих словарей и сортируем их
-    all_keys = sorted(
-    set(data_from_file1.keys()) | 
-    set(data_from_file2.keys())
-)
-    
-    result = []
+
+def build_diff(data1, data2):
+    all_keys = sorted(set(data1.keys()) | set(data2.keys()))
+    diff = []
 
     for key in all_keys:
-        if key not in data_from_file1:
-            value = format_value(data_from_file2[key])
-            result.append(f"  + {key}: {value}")
-        elif key not in data_from_file2:
-            value = format_value(data_from_file1[key])
-            result.append(f"  - {key}: {value}")
-        elif data_from_file1[key] == data_from_file2[key]:
-            value = format_value(data_from_file1[key])
-            result.append(f"    {key}: {value}")
+        if key not in data1:
+            diff.append({
+                "key": key,
+                "type": "added",
+                "value": data2[key]
+            })
+        elif key not in data2:
+            diff.append({
+                "key": key,
+                "type": "removed",
+                "value": data1[key]
+            })
+        elif isinstance(data1[key], dict) and isinstance(data2[key], dict):
+            diff.append({
+                "key": key,
+                "type": "nested",
+                "children": build_diff(data1[key], data2[key])
+            })
+        elif data1[key] == data2[key]:
+            diff.append({
+                "key": key,
+                "type": "unchanged",
+                "value": data1[key]
+            })
         else:
-            value1 = format_value(data_from_file1[key])
-            value2 = format_value(data_from_file2[key])
-            result.append(f"  - {key}: {value1}")
-            result.append(f"  + {key}: {value2}")
-    
-    return "{\n" + "\n".join(result) + "\n}"
-
-
-# Вспомогательная функция для преобразования значений
-def format_value(value):
-    if isinstance(value, bool):
-        return str(value).lower()  # True → "true", False → "false"
-    return value
-
-
-'''
-if __name__ == '__main__':
-    #difference = generate_diff(dict1, dict2)
-    #print(difference)
-    generate_diff(data1, data2)
-'''
-
+            diff.append({
+                "key": key,
+                "type": "changed",
+                "old_value": data1[key],
+                "new_value": data2[key]
+            })
+    return diff

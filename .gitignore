@@ -10,6 +10,10 @@ my_note.txt
 /file2.json
 /file1.yaml
 /file2.yaml
+/file3.json
+/file4.json
+/file3.yaml
+/file4.yaml
 tmp1.py
 tmp10.py
 tmp11.py
@@ -21,4 +25,11 @@ gendiff/file1.json
 gendiff/file2.json
 gendiff/file1.yaml
 gendiff/file2.yaml
+gendiff/file3.json
+gendiff/file4.json
+gendiff/file3.yaml
+gendiff/file4.yaml
 /sonar-project.properties
+result3.txt
+result5.txt
+result6.txt
