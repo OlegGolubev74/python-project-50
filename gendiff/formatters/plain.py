@@ -1,4 +1,4 @@
-def stringify(value):
+def convert_to_str(value):
     if isinstance(value, dict):
         return '[complex value]'
     elif isinstance(value, bool):
@@ -21,7 +21,7 @@ def format_plain(diff, parent_key=''):
         if type_ == 'nested':
             lines.append(format_plain(node['children'], f"{full_path}."))
         elif type_ == 'added':
-            value = stringify(node['value'])
+            value = convert_to_str(node['value'])
             lines.append(
                 f"Property '{full_path}' was added "
                 f"with value: {value}"
@@ -29,8 +29,8 @@ def format_plain(diff, parent_key=''):
         elif type_ == 'removed':
             lines.append(f"Property '{full_path}' was removed")
         elif type_ == 'changed':
-            old_value = stringify(node['old_value'])
-            new_value = stringify(node['new_value'])
+            old_value = convert_to_str(node['old_value'])
+            new_value = convert_to_str(node['new_value'])
             lines.append(
                 f"Property '{full_path}' was updated. " 
                 f"From {old_value} to {new_value}"
